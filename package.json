@@ -1,0 +1,79 @@
+{
+  "name": "@micjanic/catbox",
+  "version": "0.0.31",
+  "type": "module",
+  "license": "MIT",
+  "author": {
+    "name": "Michael Janicki",
+    "url": "https://github.com/micjanic"
+  },
+  "keywords": [],
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "main": "./dist/catbox.umd.js",
+  "module": "./dist/catbox.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/catbox.es.js",
+      "require": "./dist/catbox.umd.js"
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "publish": "npm run build && npm publish",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "8.45.0",
+    "@types/pixi.js": "^5.0.0",
+    "pixi.js": "7.2.4",
+    "@pixi/react": "7.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "5.1.6",
+    "vite": "^5.2.0",
+    "prettier": "^3.0.0"
+  },
+  "peerDependencies": {
+    "pixi.js": "7.2.4",
+    "@pixi/react": "7.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "node": true,
+      "es2020": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended"
+    ],
+    "parserOptions": {
+      "sourceType": "module"
+    }
+  }
+}
