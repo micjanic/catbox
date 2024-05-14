@@ -30,7 +30,7 @@ const CatBox: FC = () => {
 
     return (
         <div
-            className="w-full h-full overflow-hidden bg-[#5680a4]"
+            className="w-full h-full max-w-[1200px] bg-[#5680a4]"
             ref={containerRef}
         >
             <Stage
