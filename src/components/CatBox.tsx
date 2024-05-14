@@ -1,21 +1,42 @@
-import { Container, Sprite, Stage } from '@pixi/react';
-import { SCALE_MODES, Texture } from 'pixi.js';
-import { FC, useMemo } from 'react';
+import { Container, Sprite, Stage } from '@pixi/react'
+import { SCALE_MODES, Texture } from 'pixi.js'
+import { FC, useEffect, useMemo, useRef, useState } from 'react'
 
 const CatBox: FC = () => {
-  const catBoxTexture: Texture = useMemo(() => {
-    const texture = Texture.from('./catbox.png');
-    texture.baseTexture.scaleMode = SCALE_MODES.NEAREST;
-    return texture;
-  }, []);
+    const containerRef = useRef(null)
+    const [stageSize, setStageSize] = useState({ width: 0, height: 0 })
 
-  return (
-    <Stage width={800} height={800} options={{ background: 0x1099bb }}>
-      <Container>
-        <Sprite texture={catBoxTexture} x={150} y={150} scale={5} />
-      </Container>
-    </Stage>
-  );
-};
+    useEffect(() => {
+        const handleResize = () => {
+            if (containerRef.current) {
+                const { clientWidth, clientHeight } = containerRef.current
+                setStageSize({ width: clientWidth, height: clientHeight })
+            }
+        }
 
-export default CatBox;
+        handleResize() // Initial setting
+
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
+
+    const catBoxTexture: Texture = useMemo(() => {
+        const texture = Texture.from('./catbox.png')
+        texture.baseTexture.scaleMode = SCALE_MODES.NEAREST
+        return texture
+    }, [])
+
+    return (
+        <Stage
+            className="w-full"
+
+            // options={{ background:  }}
+        >
+            <Container>
+                <Sprite texture={catBoxTexture} x={150} y={150} scale={3} />
+            </Container>
+        </Stage>
+    )
+}
+
+export default CatBox

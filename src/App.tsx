@@ -1,12 +1,12 @@
-import './App.css';
-import CatBox from './components/CatBox';
+import './App.css'
+import CatBox from './components/CatBox'
 
 function App() {
-  return (
-    <div className="bg-slate-500">
-      <CatBox />
-    </div>
-  );
+    return (
+        <div className="w-full">
+            <div className="bg-black text-3xl">tedst</div>
+        </div>
+    )
 }
 
-export default App;
+export default App
