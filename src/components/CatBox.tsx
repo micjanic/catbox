@@ -3,23 +3,25 @@ import { SCALE_MODES, Texture } from 'pixi.js'
 import { FC, useEffect, useMemo, useRef, useState } from 'react'
 
 const CatBox: FC = () => {
-    const containerRef = useRef(null)
-    const [stageSize, setStageSize] = useState({ width: 0, height: 0 })
+    const containerRef = useRef<HTMLDivElement | null>(null)
+    const [dimensions, setDimensions] = useState({
+        width: 0,
+        height: 0,
+    })
 
     useEffect(() => {
         const handleResize = () => {
             if (containerRef.current) {
-                const { clientWidth, clientHeight } = containerRef.current
-                setStageSize({ width: clientWidth, height: clientHeight })
+                setDimensions({
+                    width: containerRef.current.offsetWidth,
+                    height: containerRef.current.offsetHeight,
+                })
             }
         }
-
-        handleResize() // Initial setting
-
         window.addEventListener('resize', handleResize)
+        handleResize()
         return () => window.removeEventListener('resize', handleResize)
     }, [])
-
     const catBoxTexture: Texture = useMemo(() => {
         const texture = Texture.from('./catbox.png')
         texture.baseTexture.scaleMode = SCALE_MODES.NEAREST
@@ -27,15 +29,30 @@ const CatBox: FC = () => {
     }, [])
 
     return (
-        <Stage
-            className="w-full"
-
-            // options={{ background:  }}
+        <div
+            className="w-full h-full overflow-hidden bg-[#5680a4]"
+            ref={containerRef}
         >
-            <Container>
-                <Sprite texture={catBoxTexture} x={150} y={150} scale={3} />
-            </Container>
-        </Stage>
+            <Stage
+                width={dimensions.width}
+                height={dimensions.height}
+                options={{ backgroundAlpha: 0 }}
+            >
+                <Container
+                    scale={3.2}
+                    x={dimensions.width / 2}
+                    y={dimensions.height / 2}
+                >
+                    <Sprite
+                        texture={catBoxTexture}
+                        width={196}
+                        height={256}
+                        x={-70}
+                        y={-100}
+                    />
+                </Container>
+            </Stage>
+        </div>
     )
 }
 
