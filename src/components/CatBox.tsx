@@ -1,6 +1,7 @@
 import { Container, Sprite, Stage } from '@pixi/react'
 import { SCALE_MODES, Texture } from 'pixi.js'
 import { FC, useEffect, useMemo, useRef, useState } from 'react'
+import BoxButton from './BoxButton'
 
 const CatBox: FC = () => {
     const containerRef = useRef<HTMLDivElement | null>(null)
@@ -29,10 +30,7 @@ const CatBox: FC = () => {
     }, [])
 
     return (
-        <div
-            className="w-full h-full max-w-[1200px] bg-[#5680a4]"
-            ref={containerRef}
-        >
+        <div className="w-full h-full bg-[#5680a4]" ref={containerRef}>
             <Stage
                 width={dimensions.width}
                 height={dimensions.height}
@@ -50,6 +48,7 @@ const CatBox: FC = () => {
                         x={-70}
                         y={-100}
                     />
+                    <BoxButton />
                 </Container>
             </Stage>
         </div>
