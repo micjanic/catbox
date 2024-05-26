@@ -10,11 +10,19 @@ interface BoxButtonProps {
 }
 
 const BoxButton: FC<BoxButtonProps> = ({ id, x, y, setCatStack }) => {
-    const [on, setOn] = useState<boolean>(false)
+    const [buttonOn, setButtonOn] = useState<boolean>(false)
 
     const buttonHandler = () => {
-        setOn((prev) => !prev)
-        setCatStack((prev) => prev.concat({ id, y }))
+        setButtonOn((prev) => !prev)
+        setCatStack((prev) => {
+            if (buttonOn) {
+                //remove existing element from the stack
+                return prev.filter((element) => element.id !== id)
+            } else {
+                //add this button to the stack
+                return prev.concat({ id, y })
+            }
+        })
     }
 
     const buttonTexture: Texture = useMemo(() => {
@@ -24,15 +32,15 @@ const BoxButton: FC<BoxButtonProps> = ({ id, x, y, setCatStack }) => {
         const onTexture = Texture.from('./button_on.png')
         onTexture.baseTexture.scaleMode = SCALE_MODES.NEAREST
 
-        return on ? onTexture : offTexture
-    }, [on])
+        return buttonOn ? onTexture : offTexture
+    }, [buttonOn])
 
     const curHitArea = useMemo(() => {
         const rightHitboxActive = new Rectangle(13, 6, 10, 12)
         const leftHitboxActive = new Rectangle(2, 6, 10, 12)
 
-        return on ? leftHitboxActive : rightHitboxActive
-    }, [on])
+        return buttonOn ? leftHitboxActive : rightHitboxActive
+    }, [buttonOn])
 
     return (
         <Container x={x} y={y}>

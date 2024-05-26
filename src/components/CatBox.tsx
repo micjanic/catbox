@@ -14,6 +14,10 @@ const CatBox: FC = () => {
     const boxHeight = 256
 
     useEffect(() => {
+        console.log(catStack)
+    }, [catStack])
+
+    useEffect(() => {
         const handleResize = () => {
             if (containerRef.current) {
                 setDimensions({
