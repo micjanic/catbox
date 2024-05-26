@@ -4,11 +4,14 @@ import { FC, useEffect, useMemo, useRef, useState } from 'react'
 import BoxButton from './BoxButton'
 
 const CatBox: FC = () => {
+    const [catStack, setCatStack] = useState<{ id: number; y: number }[]>([])
     const containerRef = useRef<HTMLDivElement | null>(null)
     const [dimensions, setDimensions] = useState({
         width: 0,
         height: 0,
     })
+    const boxWidth = 196
+    const boxHeight = 256
 
     useEffect(() => {
         const handleResize = () => {
@@ -23,11 +26,28 @@ const CatBox: FC = () => {
         handleResize()
         return () => window.removeEventListener('resize', handleResize)
     }, [])
+
+    const catBoxLidTexture: Texture = useMemo(() => {
+        const texture = Texture.from('./catboxlid.png')
+        texture.baseTexture.scaleMode = SCALE_MODES.NEAREST
+        return texture
+    }, [])
+
     const catBoxTexture: Texture = useMemo(() => {
         const texture = Texture.from('./catbox.png')
         texture.baseTexture.scaleMode = SCALE_MODES.NEAREST
         return texture
     }, [])
+
+    const boxButtonGroup = [...Array(9)].map((_, i) => (
+        <BoxButton
+            key={i}
+            id={i}
+            x={112}
+            y={i * 17}
+            setCatStack={setCatStack}
+        />
+    ))
 
     return (
         <div className="w-full h-full bg-[#5680a4]" ref={containerRef}>
@@ -38,17 +58,12 @@ const CatBox: FC = () => {
             >
                 <Container
                     scale={3.2}
-                    x={dimensions.width / 2}
-                    y={dimensions.height / 2}
+                    x={dimensions.width / 2 - boxWidth}
+                    y={dimensions.height / 2 - boxHeight}
                 >
-                    <Sprite
-                        texture={catBoxTexture}
-                        width={196}
-                        height={256}
-                        x={-70}
-                        y={-100}
-                    />
-                    <BoxButton />
+                    <Sprite texture={catBoxTexture} />
+                    <Sprite texture={catBoxLidTexture} x={3} y={3} />
+                    {boxButtonGroup}
                 </Container>
             </Stage>
         </div>
