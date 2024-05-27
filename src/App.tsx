@@ -1,10 +1,10 @@
 import './App.css'
-import CatBox from './components/CatBox'
+import Box from './components/Box'
 
 function App() {
     return (
         <div className="flex w-full h-screen">
-            <CatBox />
+            <Box />
         </div>
     )
 }
