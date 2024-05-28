@@ -30,7 +30,7 @@ const CatPaw: FC<CatPawProps> = ({ x, y, catStack, setCatStack }) => {
         CatPawStates.HIDE
     )
 
-    const determinePawState = () => {
+    const updatePawState = () => {
         if (catStack.length === 0) {
             // hide paw when no buttons are there to press
             console.log('hide')
@@ -50,7 +50,7 @@ const CatPaw: FC<CatPawProps> = ({ x, y, catStack, setCatStack }) => {
         setTargetPawYPos((prev) =>
             catStack[0]?.y !== undefined ? catStack[0]?.y : prev
         )
-        determinePawState()
+        updatePawState()
     }, [catStack])
 
     const catPawTexture: Texture = useMemo(() => {
@@ -62,7 +62,11 @@ const CatPaw: FC<CatPawProps> = ({ x, y, catStack, setCatStack }) => {
 
     useTick((delta) => {
         setPawYPos((prev) => {
-            if (prev === targetPawYPos) return prev
+            if (prev === targetPawYPos) {
+                // animation completion callback
+                updatePawState()
+                return prev
+            }
 
             const speed = 0.35
             const maxSpeed = 20
@@ -76,9 +80,9 @@ const CatPaw: FC<CatPawProps> = ({ x, y, catStack, setCatStack }) => {
             //prevent infinite decimal
             if (isRoundedDecimal) {
                 //complete animation
-                console.log('animation done')
                 return targetPawYPos
             } else {
+                // continue animation
                 return pawDifference
             }
         })

@@ -39,7 +39,7 @@ const BoxLid: FC<BoxLidProps> = ({ x, y, catStack }) => {
     const drawMask = useCallback((g: any) => {
         g.clear()
         g.beginFill(0xffffff)
-        g.drawRect(0, -30, 150, 186) // Adjust dimensions as needed
+        g.drawRect(0, -30, 150, 186.1) // Adjust dimensions as needed
         g.endFill()
     }, [])
 
