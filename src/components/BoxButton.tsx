@@ -4,12 +4,11 @@ import { Dispatch, FC, SetStateAction, useMemo, useState } from 'react'
 
 interface BoxButtonProps {
     id: number
-    x: number
     y: number
     setCatStack: Dispatch<SetStateAction<{ id: number; y: number }[]>>
 }
 
-const BoxButton: FC<BoxButtonProps> = ({ id, x, y, setCatStack }) => {
+const BoxButton: FC<BoxButtonProps> = ({ id, y, setCatStack }) => {
     const [buttonOn, setButtonOn] = useState<boolean>(false)
 
     const buttonHandler = () => {
@@ -43,7 +42,7 @@ const BoxButton: FC<BoxButtonProps> = ({ id, x, y, setCatStack }) => {
     }, [buttonOn])
 
     return (
-        <Container x={x} y={y}>
+        <Container y={y}>
             <Sprite
                 texture={buttonTexture}
                 cursor="pointer"
