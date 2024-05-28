@@ -4,13 +4,16 @@ import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 interface BoxLidProps {
     catStack: { id: number; y: number }[]
+    x: number
+    y: number
 }
 
-const BoxLid: FC<BoxLidProps> = ({ catStack }) => {
+const BoxLid: FC<BoxLidProps> = ({ x, y, catStack }) => {
     const [openBox, setOpenBox] = useState<boolean>(false)
     const [lidPosition, setLidPosition] = useState<number>(0)
     const [targetLidPosition, setTargetLidPosition] = useState<number>(0)
     const maskRef = useRef<any>(null)
+    const [maskReady, setMaskReady] = useState<boolean>(false)
 
     const catBoxLidTexture: Texture = useMemo(() => {
         const texture = Texture.from('./catboxlid.png')
@@ -18,7 +21,7 @@ const BoxLid: FC<BoxLidProps> = ({ catStack }) => {
         return texture
     }, [])
 
-    const lidOpenAmount: number = 0.13
+    const lidOpenAmount: number = 0.1
 
     useEffect(() => {
         if (catStack.length > 0) {
@@ -40,6 +43,12 @@ const BoxLid: FC<BoxLidProps> = ({ catStack }) => {
         g.endFill()
     }, [])
 
+    useEffect(() => {
+        if (maskRef.current) {
+            setMaskReady(true)
+        }
+    }, [maskRef.current])
+
     useTick((delta) => {
         setLidPosition((prev) => {
             return prev + (targetLidPosition - prev) * 0.3 * delta
@@ -47,8 +56,8 @@ const BoxLid: FC<BoxLidProps> = ({ catStack }) => {
     })
 
     return (
-        <Container>
-            {maskRef.current && (
+        <Container x={x} y={y}>
+            {maskReady && (
                 <Sprite
                     skew={-lidPosition}
                     rotation={-lidPosition}
@@ -56,7 +65,7 @@ const BoxLid: FC<BoxLidProps> = ({ catStack }) => {
                     mask={maskRef.current}
                 />
             )}
-            <Graphics ref={maskRef} isMask={true} draw={drawMask} />
+            <Graphics ref={maskRef} draw={drawMask} />
         </Container>
     )
 }

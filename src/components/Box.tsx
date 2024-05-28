@@ -3,6 +3,7 @@ import { SCALE_MODES, Texture } from 'pixi.js'
 import { FC, useEffect, useMemo, useRef, useState } from 'react'
 import BoxButton from './BoxButton'
 import BoxLid from './BoxLid'
+import CatPaw from './CatPaw'
 
 const CatBox: FC = () => {
     const [catStack, setCatStack] = useState<{ id: number; y: number }[]>([])
@@ -14,10 +15,7 @@ const CatBox: FC = () => {
     const boxWidth = 196
     const boxHeight = 256
 
-    useEffect(() => {
-        console.log(catStack)
-    }, [catStack])
-
+    //fit stage to the container div
     useEffect(() => {
         const handleResize = () => {
             if (containerRef.current) {
@@ -55,10 +53,14 @@ const CatBox: FC = () => {
                     y={dimensions.height / 2 - boxHeight}
                 >
                     <Sprite texture={boxTexture} />
-                    <Container x={3} y={3}>
-                        <BoxLid catStack={catStack} />
-                    </Container>
                     <Container x={112}>{boxButtonGroup}</Container>
+                    <CatPaw
+                        x={55}
+                        y={0}
+                        catStack={catStack}
+                        setCatStack={setCatStack}
+                    />
+                    <BoxLid x={3} y={3} catStack={catStack} />
                 </Container>
             </Stage>
         </div>
