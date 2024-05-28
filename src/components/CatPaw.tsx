@@ -47,7 +47,6 @@ const CatPaw: FC<CatPawProps> = ({ x, y, catStack, setCatStack }) => {
     }
 
     useEffect(() => {
-        console.log(pawYPos)
         setTargetPawYPos((prev) =>
             catStack[0]?.y !== undefined ? catStack[0]?.y : prev
         )
@@ -63,9 +62,25 @@ const CatPaw: FC<CatPawProps> = ({ x, y, catStack, setCatStack }) => {
 
     useTick((delta) => {
         setPawYPos((prev) => {
-            const pawDelta = prev + (targetPawYPos - prev) * 0.25 * delta
+            if (prev === targetPawYPos) return prev
+
+            const speed = 0.35
+            const maxSpeed = 20
+            const difference = targetPawYPos - prev
+            const sign = Math.sign(difference)
+            const maxDifference =
+                Math.abs(difference) > maxSpeed ? maxSpeed * sign : difference
+            const pawDifference = prev + maxDifference * speed * delta
+            const isRoundedDecimal: boolean = Math.abs(maxDifference) < 0.7
+
             //prevent infinite decimal
-            return Math.abs(pawDelta - prev) > 0.01 ? pawDelta : targetPawYPos
+            if (isRoundedDecimal) {
+                //complete animation
+                console.log('animation done')
+                return targetPawYPos
+            } else {
+                return pawDifference
+            }
         })
     })
 
