@@ -55,7 +55,7 @@ const CatBox: FC = () => {
                     <Sprite texture={boxTexture} />
                     <Container x={112}>{boxButtonGroup}</Container>
                     <CatPaw
-                        x={55}
+                        x={25}
                         y={0}
                         catStack={catStack}
                         setCatStack={setCatStack}
