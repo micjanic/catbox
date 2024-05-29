@@ -31,51 +31,34 @@ const CatPaw: FC<CatPawProps> = ({ x, y, catStack, setCatStack }) => {
         CatPawStates.HIDE
     )
 
-    const updatePawState = () => {
-        if (catStack.length === 0) {
-            // hide paw when no buttons are there to press
-            console.log('hide')
-            setCatPawState(CatPawStates.HIDE)
-        } else if (catStack[0]?.y === pawYPos) {
-            console.log('button')
-            // paw goes to the button press state when paw y and top button y match
-            setCatPawState(CatPawStates.BUTTON)
-        } else {
-            console.log(catStack[0]?.y, pawYPos)
-            // paw goes to moving position when paw y and top button don't match
-            console.log('move')
-            setCatPawState(CatPawStates.MOVE)
-        }
-    }
-
-    // const clickButton = () => {}
-
     useEffect(() => {
-        //move paw X axis
-        if (catPawState === CatPawStates.HIDE) {
-            console.log('hiding')
-            setTargetPawXPos(0)
-        }
-        if (catPawState === CatPawStates.MOVE) {
-            console.log('moving')
-            setTimeout(() => {
-                setTargetPawXPos(20)
-            }, 100)
-        }
-        if (catPawState === CatPawStates.BUTTON) {
-            console.log('buttoning')
-            setTimeout(() => {
-                setTargetPawXPos(40)
-            }, 100)
+        switch (catPawState) {
+            case CatPawStates.HIDE:
+                console.log('hide')
+                setTargetPawXPos(0)
+                break
+            case CatPawStates.MOVE:
+                console.log('move')
+                setTargetPawXPos(25)
+                setTargetPawYPos((prev) =>
+                    catStack[0]?.y !== undefined ? catStack[0]?.y : prev
+                )
+                break
+            case CatPawStates.BUTTON:
+                console.log('button')
+                setTargetPawXPos(28)
+                break
         }
     }, [catPawState])
 
     useEffect(() => {
-        //move paw Y axis
-        setTargetPawYPos((prev) =>
-            catStack[0]?.y !== undefined ? catStack[0]?.y : prev
-        )
-        updatePawState()
+        if (catStack.length === 0) {
+            setCatPawState(CatPawStates.HIDE)
+        } else if (catStack[0]?.y === pawYPos) {
+            setCatPawState(CatPawStates.BUTTON)
+        } else {
+            setCatPawState(CatPawStates.MOVE)
+        }
     }, [catStack])
 
     const catPawTexture: Texture = useMemo(() => {
@@ -89,19 +72,22 @@ const CatPaw: FC<CatPawProps> = ({ x, y, catStack, setCatStack }) => {
         setPawXPos((prev) => {
             if (prev === targetPawXPos) return prev
 
-            const speed = 0.35
-            const maxSpeed = 20
+            const speed = 1
+            const maxSpeed = 1
             const difference = targetPawXPos - prev
             const sign = Math.sign(difference)
             const maxDifference =
                 Math.abs(difference) > maxSpeed ? maxSpeed * sign : difference
             const pawDifference = prev + maxDifference * speed * delta
-            const isRoundedDecimal: boolean = Math.abs(maxDifference) < 0.7
+            const isRoundedDecimal: boolean = Math.abs(maxDifference) < 0.5
 
             //prevent infinite decimal
             if (isRoundedDecimal) {
                 //complete animation
-                updatePawState()
+                if (catPawState === CatPawStates.BUTTON) {
+                    setCatStack((prev) => prev.slice(1))
+                    setTargetPawXPos((prev) => prev + 12)
+                }
                 return targetPawXPos
             } else {
                 // continue animation
@@ -112,8 +98,8 @@ const CatPaw: FC<CatPawProps> = ({ x, y, catStack, setCatStack }) => {
         setPawYPos((prev) => {
             if (prev === targetPawYPos) return prev
 
-            const speed = 0.35
-            const maxSpeed = 20
+            const speed = 0.5
+            const maxSpeed = 2
             const difference = targetPawYPos - prev
             const sign = Math.sign(difference)
             const maxDifference =

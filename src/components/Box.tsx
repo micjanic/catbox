@@ -37,7 +37,13 @@ const CatBox: FC = () => {
     }, [])
 
     const boxButtonGroup = [...Array(9)].map((_, i) => (
-        <BoxButton key={i} id={i} y={i * 17} setCatStack={setCatStack} />
+        <BoxButton
+            key={i}
+            id={i}
+            y={i * 17}
+            catStack={catStack}
+            setCatStack={setCatStack}
+        />
     ))
 
     return (

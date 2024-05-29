@@ -5,14 +5,16 @@ import { Dispatch, FC, SetStateAction, useMemo, useState } from 'react'
 interface BoxButtonProps {
     id: number
     y: number
+    catStack: { id: number; y: number }[]
     setCatStack: Dispatch<SetStateAction<{ id: number; y: number }[]>>
 }
 
-const BoxButton: FC<BoxButtonProps> = ({ id, y, setCatStack }) => {
-    const [buttonOn, setButtonOn] = useState<boolean>(false)
+const BoxButton: FC<BoxButtonProps> = ({ id, y, catStack, setCatStack }) => {
+    const buttonOn = useMemo(() => {
+        return catStack.some((buttonData) => buttonData.id === id)
+    }, [catStack])
 
     const buttonHandler = () => {
-        setButtonOn((prev) => !prev)
         setCatStack((prev) => {
             if (buttonOn) {
                 //remove existing element from the stack

@@ -9,7 +9,7 @@ interface BoxLidProps {
 }
 
 const BoxLid: FC<BoxLidProps> = ({ x, y, catStack }) => {
-    const [openBox, setOpenBox] = useState<boolean>(false)
+    // const [openBox, setOpenBox] = useState<boolean>(false)
     const [lidPosition, setLidPosition] = useState<number>(0)
     const [targetLidPosition, setTargetLidPosition] = useState<number>(0)
     const maskRef = useRef<any>(null)
@@ -21,18 +21,18 @@ const BoxLid: FC<BoxLidProps> = ({ x, y, catStack }) => {
         return texture
     }, [])
 
-    const lidOpenAmount: number = 0.1
+    const lidOpenAmount: number = 0.13
 
     useEffect(() => {
         if (catStack.length > 0) {
             // Setting a delay here to make it feel more natural
             setTimeout(() => {
                 setTargetLidPosition(lidOpenAmount)
-            }, 50)
+            }, 80)
         } else {
             setTimeout(() => {
                 setTargetLidPosition(0)
-            }, 50)
+            }, 80)
         }
     }, [catStack])
 
@@ -51,7 +51,7 @@ const BoxLid: FC<BoxLidProps> = ({ x, y, catStack }) => {
 
     useTick((delta) => {
         setLidPosition((prev) => {
-            return prev + (targetLidPosition - prev) * 0.3 * delta
+            return prev + (targetLidPosition - prev) * 0.2 * delta
         })
     })
 
