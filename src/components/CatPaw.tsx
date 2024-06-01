@@ -72,8 +72,8 @@ const CatPaw: FC<CatPawProps> = ({ x, y, catStack, setCatStack }) => {
         setPawXPos((prev) => {
             if (prev === targetPawXPos) return prev
 
-            const speed = 1
-            const maxSpeed = 1
+            const speed = 0.35
+            const maxSpeed = 6
             const difference = targetPawXPos - prev
             const sign = Math.sign(difference)
             const maxDifference =
@@ -98,8 +98,8 @@ const CatPaw: FC<CatPawProps> = ({ x, y, catStack, setCatStack }) => {
         setPawYPos((prev) => {
             if (prev === targetPawYPos) return prev
 
-            const speed = 0.5
-            const maxSpeed = 2
+            const speed = 0.15
+            const maxSpeed = 20
             const difference = targetPawYPos - prev
             const sign = Math.sign(difference)
             const maxDifference =

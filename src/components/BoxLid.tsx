@@ -21,18 +21,19 @@ const BoxLid: FC<BoxLidProps> = ({ x, y, catStack }) => {
         return texture
     }, [])
 
-    const lidOpenAmount: number = 0.13
+    const lidOpen: number = 0.13
+    const lidClosed: number = 0
 
     useEffect(() => {
         if (catStack.length > 0) {
             // Setting a delay here to make it feel more natural
             setTimeout(() => {
-                setTargetLidPosition(lidOpenAmount)
+                setTargetLidPosition(lidOpen)
             }, 80)
         } else {
             setTimeout(() => {
-                setTargetLidPosition(0)
-            }, 80)
+                setTargetLidPosition(lidClosed)
+            }, 250)
         }
     }, [catStack])
 
