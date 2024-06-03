@@ -21,20 +21,18 @@ const BoxLid: FC<BoxLidProps> = ({ x, y, catStack }) => {
         return texture
     }, [])
 
-    const lidOpen: number = 0.13
+    const lidOpen: number = 0.1
     const lidClosed: number = 0
 
     useEffect(() => {
-        if (catStack.length > 0) {
-            // Setting a delay here to make it feel more natural
-            setTimeout(() => {
+        // Setting a delay here to make it feel more natural
+        setTimeout(() => {
+            if (catStack.length > 0) {
                 setTargetLidPosition(lidOpen)
-            }, 80)
-        } else {
-            setTimeout(() => {
+            } else {
                 setTargetLidPosition(lidClosed)
-            }, 250)
-        }
+            }
+        }, 250)
     }, [catStack])
 
     const drawMask = useCallback((g: any) => {
@@ -60,6 +58,7 @@ const BoxLid: FC<BoxLidProps> = ({ x, y, catStack }) => {
         <Container x={x} y={y}>
             {maskReady && (
                 <Sprite
+                    width={109 - lidPosition * 55}
                     skew={-lidPosition}
                     rotation={-lidPosition}
                     texture={catBoxLidTexture}

@@ -23,6 +23,7 @@ enum CatPawStates {
 }
 
 const CatPaw: FC<CatPawProps> = ({ x, y, catStack, setCatStack }) => {
+    const [pawVisible, setPawVisible] = useState<boolean>(true)
     const [pawYPos, setPawYPos] = useState<number>(0)
     const [targetPawYPos, setTargetPawYPos] = useState<number>(0)
     const [pawXPos, setPawXPos] = useState<number>(0)
@@ -34,18 +35,14 @@ const CatPaw: FC<CatPawProps> = ({ x, y, catStack, setCatStack }) => {
     useEffect(() => {
         switch (catPawState) {
             case CatPawStates.HIDE:
-                console.log('hide')
                 setTargetPawXPos(0)
                 break
             case CatPawStates.MOVE:
-                console.log('move')
+                setPawVisible(true)
                 setTargetPawXPos(25)
-                setTargetPawYPos((prev) =>
-                    catStack[0]?.y !== undefined ? catStack[0]?.y : prev
-                )
+                setTargetPawYPos(catStack[0]?.y)
                 break
             case CatPawStates.BUTTON:
-                console.log('button')
                 setTargetPawXPos(28)
                 break
         }
@@ -55,16 +52,31 @@ const CatPaw: FC<CatPawProps> = ({ x, y, catStack, setCatStack }) => {
         if (catStack.length === 0) {
             setCatPawState(CatPawStates.HIDE)
         } else if (catStack[0]?.y === pawYPos) {
-            setCatPawState(CatPawStates.BUTTON)
+            if (catPawState === CatPawStates.HIDE) {
+                setTimeout(() => {
+                    // when moving from hidden state, jump the paw to the button position
+                    setPawYPos(catStack[0]?.y + 15)
+                    setCatPawState(CatPawStates.BUTTON)
+                }, 200)
+            } else {
+                setCatPawState(CatPawStates.BUTTON)
+            }
         } else {
-            setCatPawState(CatPawStates.MOVE)
+            if (catPawState === CatPawStates.HIDE) {
+                setTimeout(() => {
+                    // when moving from hidden state, jump the paw to the button position
+                    setPawYPos(catStack[0]?.y + 15)
+                    setCatPawState(CatPawStates.MOVE)
+                }, 200)
+            } else {
+                setCatPawState(CatPawStates.MOVE)
+            }
         }
     }, [catStack])
 
     const catPawTexture: Texture = useMemo(() => {
         const texture = Texture.from('./paw.png')
         texture.baseTexture.scaleMode = SCALE_MODES.NEAREST
-
         return texture
     }, [])
 
@@ -87,6 +99,9 @@ const CatPaw: FC<CatPawProps> = ({ x, y, catStack, setCatStack }) => {
                 if (catPawState === CatPawStates.BUTTON) {
                     setCatStack((prev) => prev.slice(1))
                     setTargetPawXPos((prev) => prev + 12)
+                }
+                if (catPawState === CatPawStates.HIDE) {
+                    setPawVisible(false)
                 }
                 return targetPawXPos
             } else {
@@ -126,7 +141,12 @@ const CatPaw: FC<CatPawProps> = ({ x, y, catStack, setCatStack }) => {
 
     return (
         <Container x={x} y={y}>
-            <Sprite x={pawXPos} y={pawYPos} texture={catPawTexture} />
+            <Sprite
+                visible={pawVisible}
+                x={pawXPos}
+                y={pawYPos}
+                texture={catPawTexture}
+            />
         </Container>
     )
 }

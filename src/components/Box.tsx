@@ -36,7 +36,7 @@ const CatBox: FC = () => {
         return texture
     }, [])
 
-    const boxButtonGroup = [...Array(9)].map((_, i) => (
+    const boxButtonGroup = [...Array(8)].map((_, i) => (
         <BoxButton
             key={i}
             id={i}
