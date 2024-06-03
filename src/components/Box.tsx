@@ -54,9 +54,12 @@ const CatBox: FC = () => {
                 options={{ backgroundAlpha: 0 }}
             >
                 <Container
-                    scale={3.2}
-                    x={dimensions.width / 2 - boxWidth}
-                    y={dimensions.height / 2 - boxHeight}
+                    scale={
+                        dimensions.width > 500 ? 3.2 : dimensions.width * 0.0068
+                    }
+                    pivot={[69]}
+                    x={dimensions.width / 2}
+                    y={dimensions.height / 2}
                 >
                     <Sprite texture={boxTexture} />
                     <Container x={112}>{boxButtonGroup}</Container>
