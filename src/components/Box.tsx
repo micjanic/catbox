@@ -12,8 +12,6 @@ const CatBox: FC = () => {
         width: 0,
         height: 0,
     })
-    const boxWidth = 196
-    const boxHeight = 256
 
     //fit stage to the container div
     useEffect(() => {

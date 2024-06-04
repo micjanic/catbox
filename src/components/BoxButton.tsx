@@ -1,6 +1,6 @@
 import { Container, Sprite } from '@pixi/react'
 import { SCALE_MODES, Texture, Rectangle } from 'pixi.js'
-import { Dispatch, FC, SetStateAction, useMemo, useState } from 'react'
+import { Dispatch, FC, SetStateAction, useMemo } from 'react'
 
 interface BoxButtonProps {
     id: number
