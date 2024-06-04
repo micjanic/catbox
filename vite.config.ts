@@ -12,8 +12,8 @@ export default defineConfig({
     build: {
         lib: {
             entry: path.resolve(__dirname, 'src/components/CatBox.tsx'),
-            name: '@micjanic/circle-sliders',
-            fileName: (format) => `circle-sliders.${format}.js`,
+            name: '@micjanic/catbox',
+            fileName: (format) => `catbox.${format}.js`,
         },
         rollupOptions: {
             external: ['react', 'react-dom', '@pixi/react', 'pixi.js'],

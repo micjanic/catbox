@@ -23,7 +23,7 @@ enum CatPawStates {
 }
 
 const CatPaw: FC<CatPawProps> = ({ x, y, catStack, setCatStack }) => {
-    const [pawVisible, setPawVisible] = useState<boolean>(true)
+    const [pawVisible, setPawVisible] = useState<boolean>(false)
     const [pawYPos, setPawYPos] = useState<number>(0)
     const [targetPawYPos, setTargetPawYPos] = useState<number>(0)
     const [pawXPos, setPawXPos] = useState<number>(0)
