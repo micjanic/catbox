@@ -75,7 +75,7 @@ const CatPaw: FC<CatPawProps> = ({ x, y, catStack, setCatStack }) => {
     }, [catStack])
 
     const catPawTexture: Texture = useMemo(() => {
-        const texture = Texture.from('./paw.png')
+        const texture = Texture.from('/paw.png')
         texture.baseTexture.scaleMode = SCALE_MODES.NEAREST
         return texture
     }, [])

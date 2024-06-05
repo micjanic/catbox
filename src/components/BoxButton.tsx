@@ -27,10 +27,10 @@ const BoxButton: FC<BoxButtonProps> = ({ id, y, catStack, setCatStack }) => {
     }
 
     const buttonTexture: Texture = useMemo(() => {
-        const offTexture = Texture.from('./button_off.png')
+        const offTexture = Texture.from('/button_off.png')
         offTexture.baseTexture.scaleMode = SCALE_MODES.NEAREST
 
-        const onTexture = Texture.from('./button_on.png')
+        const onTexture = Texture.from('/button_on.png')
         onTexture.baseTexture.scaleMode = SCALE_MODES.NEAREST
 
         return buttonOn ? onTexture : offTexture

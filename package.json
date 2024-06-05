@@ -1,6 +1,6 @@
 {
     "name": "@micjanic/catbox",
-    "version": "1.0.2",
+    "version": "1.0.6",
     "type": "module",
     "license": "MIT",
     "author": {
@@ -10,6 +10,7 @@
     "keywords": [],
     "files": [
         "dist",
+        "public",
         "README.md"
     ],
     "main": "./dist/catbox.umd.js",

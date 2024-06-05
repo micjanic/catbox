@@ -16,7 +16,7 @@ const BoxLid: FC<BoxLidProps> = ({ x, y, catStack }) => {
     const [maskReady, setMaskReady] = useState<boolean>(false)
 
     const catBoxLidTexture: Texture = useMemo(() => {
-        const texture = Texture.from('./catboxlid.png')
+        const texture = Texture.from('/catboxlid.png')
         texture.baseTexture.scaleMode = SCALE_MODES.NEAREST
         return texture
     }, [])

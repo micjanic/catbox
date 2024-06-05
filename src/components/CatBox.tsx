@@ -29,7 +29,7 @@ const CatBox: FC = () => {
     }, [])
 
     const boxTexture: Texture = useMemo(() => {
-        const texture = Texture.from('./catbox.png')
+        const texture = Texture.from('/catbox.png')
         texture.baseTexture.scaleMode = SCALE_MODES.NEAREST
         return texture
     }, [])
