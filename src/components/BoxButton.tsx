@@ -2,6 +2,10 @@ import { Container, Sprite } from '@pixi/react'
 import { SCALE_MODES, Texture, Rectangle } from 'pixi.js'
 import { Dispatch, FC, SetStateAction, useMemo } from 'react'
 
+//images
+import buttonOffImage from '/button_off.png'
+import buttonOnImage from '/button_on.png'
+
 interface BoxButtonProps {
     id: number
     y: number
@@ -27,10 +31,10 @@ const BoxButton: FC<BoxButtonProps> = ({ id, y, catStack, setCatStack }) => {
     }
 
     const buttonTexture: Texture = useMemo(() => {
-        const offTexture = Texture.from('/button_off.png')
+        const offTexture = Texture.from(buttonOffImage)
         offTexture.baseTexture.scaleMode = SCALE_MODES.NEAREST
 
-        const onTexture = Texture.from('/button_on.png')
+        const onTexture = Texture.from(buttonOnImage)
         onTexture.baseTexture.scaleMode = SCALE_MODES.NEAREST
 
         return buttonOn ? onTexture : offTexture

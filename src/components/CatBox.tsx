@@ -5,6 +5,9 @@ import BoxButton from './BoxButton'
 import BoxLid from './BoxLid'
 import CatPaw from './CatPaw'
 
+//images
+import catBox from '/catbox.png'
+
 const CatBox: FC = () => {
     const [catStack, setCatStack] = useState<{ id: number; y: number }[]>([])
     const containerRef = useRef<HTMLDivElement | null>(null)
@@ -29,7 +32,7 @@ const CatBox: FC = () => {
     }, [])
 
     const boxTexture: Texture = useMemo(() => {
-        const texture = Texture.from('/catbox.png')
+        const texture = Texture.from(catBox)
         texture.baseTexture.scaleMode = SCALE_MODES.NEAREST
         return texture
     }, [])

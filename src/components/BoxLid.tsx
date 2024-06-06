@@ -2,6 +2,9 @@ import { Container, Graphics, Sprite, useTick } from '@pixi/react'
 import { SCALE_MODES, Texture } from 'pixi.js'
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
+//images
+import catBoxLid from '/catboxlid.png'
+
 interface BoxLidProps {
     catStack: { id: number; y: number }[]
     x: number
@@ -16,7 +19,7 @@ const BoxLid: FC<BoxLidProps> = ({ x, y, catStack }) => {
     const [maskReady, setMaskReady] = useState<boolean>(false)
 
     const catBoxLidTexture: Texture = useMemo(() => {
-        const texture = Texture.from('/catboxlid.png')
+        const texture = Texture.from(catBoxLid)
         texture.baseTexture.scaleMode = SCALE_MODES.NEAREST
         return texture
     }, [])
