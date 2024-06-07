@@ -3,7 +3,7 @@ import { SCALE_MODES, Texture } from 'pixi.js'
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 //images
-import catBoxLid from '/catboxlid.png'
+import catBoxLid from './images/catboxlid.png'
 
 interface BoxLidProps {
     catStack: { id: number; y: number }[]

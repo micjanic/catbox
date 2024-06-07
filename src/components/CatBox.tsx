@@ -6,7 +6,7 @@ import BoxLid from './BoxLid'
 import CatPaw from './CatPaw'
 
 //images
-import catBox from '/catbox.png'
+import catBox from './images/catbox.png'
 
 const CatBox: FC = () => {
     const [catStack, setCatStack] = useState<{ id: number; y: number }[]>([])

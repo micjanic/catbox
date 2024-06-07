@@ -16,10 +16,18 @@ export default defineConfig({
             fileName: (format) => `catbox.${format}.js`,
         },
         rollupOptions: {
-            external: ['react', 'react-dom', '@pixi/react', 'pixi.js'],
+            external: [
+                'react',
+                'react-dom',
+                '@pixi/react',
+                'pixi.js',
+                'tailwindcss',
+            ],
             output: {
                 globals: {
                     react: 'React',
+                    '@pixi/react': 'PIXIReact',
+                    'pixi.js': 'PIXI',
                 },
             },
         },

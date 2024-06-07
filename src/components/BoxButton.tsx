@@ -3,8 +3,8 @@ import { SCALE_MODES, Texture, Rectangle } from 'pixi.js'
 import { Dispatch, FC, SetStateAction, useMemo } from 'react'
 
 //images
-import buttonOffImage from '/button_off.png'
-import buttonOnImage from '/button_on.png'
+import buttonOffImage from './images/button_off.png'
+import buttonOnImage from './images/button_on.png'
 
 interface BoxButtonProps {
     id: number
