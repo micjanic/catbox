@@ -24,6 +24,7 @@ export default defineConfig({
                 'tailwindcss',
             ],
             output: {
+                assetFileNames: 'assets/[name].[hash][extname]',
                 globals: {
                     react: 'React',
                     '@pixi/react': 'PIXIReact',
