@@ -1,13 +1,5 @@
 import { Container, Sprite, useTick } from '@pixi/react'
-import { SCALE_MODES, Texture } from 'pixi.js'
-import {
-    Dispatch,
-    FC,
-    SetStateAction,
-    useEffect,
-    useMemo,
-    useState,
-} from 'react'
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
 
 import paw from './images/paw.png'
 
@@ -76,12 +68,6 @@ const CatPaw: FC<CatPawProps> = ({ x, y, catStack, setCatStack }) => {
         }
     }, [catStack])
 
-    const catPawTexture: Texture = useMemo(() => {
-        const texture = Texture.from(paw)
-        texture.baseTexture.scaleMode = SCALE_MODES.NEAREST
-        return texture
-    }, [])
-
     useTick((delta) => {
         setPawXPos((prev) => {
             if (prev === targetPawXPos) return prev
@@ -143,12 +129,7 @@ const CatPaw: FC<CatPawProps> = ({ x, y, catStack, setCatStack }) => {
 
     return (
         <Container x={x} y={y}>
-            <Sprite
-                visible={pawVisible}
-                x={pawXPos}
-                y={pawYPos}
-                texture={catPawTexture}
-            />
+            <Sprite visible={pawVisible} x={pawXPos} y={pawYPos} image={paw} />
         </Container>
     )
 }

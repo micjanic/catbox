@@ -1,5 +1,5 @@
 import { Container, Sprite } from '@pixi/react'
-import { SCALE_MODES, Texture, Rectangle } from 'pixi.js'
+import { Rectangle } from 'pixi.js'
 import { Dispatch, FC, SetStateAction, useMemo } from 'react'
 
 //images
@@ -30,14 +30,8 @@ const BoxButton: FC<BoxButtonProps> = ({ id, y, catStack, setCatStack }) => {
         })
     }
 
-    const buttonTexture: Texture = useMemo(() => {
-        const offTexture = Texture.from(buttonOffImage)
-        offTexture.baseTexture.scaleMode = SCALE_MODES.NEAREST
-
-        const onTexture = Texture.from(buttonOnImage)
-        onTexture.baseTexture.scaleMode = SCALE_MODES.NEAREST
-
-        return buttonOn ? onTexture : offTexture
+    const buttonImage: string = useMemo(() => {
+        return buttonOn ? buttonOnImage : buttonOffImage
     }, [buttonOn])
 
     const curHitArea = useMemo(() => {
@@ -50,7 +44,7 @@ const BoxButton: FC<BoxButtonProps> = ({ id, y, catStack, setCatStack }) => {
     return (
         <Container y={y}>
             <Sprite
-                texture={buttonTexture}
+                image={buttonImage}
                 cursor="pointer"
                 eventMode="static"
                 hitArea={curHitArea}

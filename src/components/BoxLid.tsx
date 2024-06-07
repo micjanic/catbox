@@ -1,6 +1,5 @@
 import { Container, Graphics, Sprite, useTick } from '@pixi/react'
-import { SCALE_MODES, Texture } from 'pixi.js'
-import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { FC, useCallback, useEffect, useRef, useState } from 'react'
 
 //images
 import catBoxLid from './images/catboxlid.png'
@@ -17,12 +16,6 @@ const BoxLid: FC<BoxLidProps> = ({ x, y, catStack }) => {
     const [targetLidPosition, setTargetLidPosition] = useState<number>(0)
     const maskRef = useRef<any>(null)
     const [maskReady, setMaskReady] = useState<boolean>(false)
-
-    const catBoxLidTexture: Texture = useMemo(() => {
-        const texture = Texture.from(catBoxLid)
-        texture.baseTexture.scaleMode = SCALE_MODES.NEAREST
-        return texture
-    }, [])
 
     const lidOpen: number = 0.1
     const lidClosed: number = 0
@@ -64,7 +57,7 @@ const BoxLid: FC<BoxLidProps> = ({ x, y, catStack }) => {
                     width={109 - lidPosition * 55}
                     skew={-lidPosition}
                     rotation={-lidPosition}
-                    texture={catBoxLidTexture}
+                    image={catBoxLid}
                     mask={maskRef.current}
                 />
             )}

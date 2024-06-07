@@ -1,12 +1,15 @@
 import { Container, Sprite, Stage } from '@pixi/react'
-import { SCALE_MODES, Texture } from 'pixi.js'
-import { FC, useEffect, useMemo, useRef, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import BoxButton from './BoxButton'
 import BoxLid from './BoxLid'
 import CatPaw from './CatPaw'
+import * as PIXI from 'pixi.js'
 
 //images
 import catBox from './images/catbox.png'
+
+// Disable antialiasing globally
+PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST
 
 const CatBox: FC = () => {
     const [catStack, setCatStack] = useState<{ id: number; y: number }[]>([])
@@ -29,12 +32,6 @@ const CatBox: FC = () => {
         window.addEventListener('resize', handleResize)
         handleResize()
         return () => window.removeEventListener('resize', handleResize)
-    }, [])
-
-    const boxTexture: Texture = useMemo(() => {
-        const texture = Texture.from(catBox)
-        texture.baseTexture.scaleMode = SCALE_MODES.NEAREST
-        return texture
     }, [])
 
     const boxButtonGroup = [...Array(8)].map((_, i) => (
@@ -62,7 +59,7 @@ const CatBox: FC = () => {
                     x={dimensions.width / 2}
                     y={dimensions.height / 2}
                 >
-                    <Sprite texture={boxTexture} />
+                    <Sprite image={catBox} />
                     <Container x={112}>{boxButtonGroup}</Container>
                     <CatPaw
                         x={25}
