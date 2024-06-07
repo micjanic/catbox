@@ -9,7 +9,7 @@ import * as PIXI from 'pixi.js'
 import catBox from './images/catbox.png'
 
 // Disable antialiasing globally
-PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST
+PIXI.BaseTexture.defaultOptions.scaleMode = PIXI.SCALE_MODES.NEAREST
 
 const CatBox: FC = () => {
     const [catStack, setCatStack] = useState<{ id: number; y: number }[]>([])
