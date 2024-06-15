@@ -34,6 +34,24 @@ const CatBox: FC = () => {
         return () => window.removeEventListener('resize', handleResize)
     }, [])
 
+    // Allow touch scrolling
+    useEffect(() => {
+        const handleTouchMove = (event) => {
+            // Allow scrolling if touch is outside interactive elements
+            if (event.target instanceof HTMLCanvasElement) {
+                event.preventDefault()
+            }
+        }
+
+        document.addEventListener('touchmove', handleTouchMove, {
+            passive: false,
+        })
+
+        return () => {
+            document.removeEventListener('touchmove', handleTouchMove)
+        }
+    }, [])
+
     const boxButtonGroup = [...Array(8)].map((_, i) => (
         <BoxButton
             key={i}
