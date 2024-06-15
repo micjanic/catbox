@@ -27,7 +27,6 @@ const CatBox: FC = () => {
                     width: containerRef.current.offsetWidth,
                     height: containerRef.current.offsetHeight,
                 })
-                console.log(containerRef.current.clientHeight)
             }
         }
         window.addEventListener('resize', handleResize)
@@ -46,10 +45,7 @@ const CatBox: FC = () => {
     ))
 
     return (
-        <div
-            className="w-full h-full min-h-[700px] bg-[#5680a4]"
-            ref={containerRef}
-        >
+        <div className="w-full h-full min-h-[700px]" ref={containerRef}>
             <Stage
                 width={dimensions.width}
                 height={dimensions.height}
