@@ -36,7 +36,7 @@ const CatBox: FC = () => {
 
     // Allow touch scrolling
     useEffect(() => {
-        const handleTouchMove = (event) => {
+        const handleTouchMove = (event: Event) => {
             // Allow scrolling if touch is outside interactive elements
             if (event.target instanceof HTMLCanvasElement) {
                 event.preventDefault()
