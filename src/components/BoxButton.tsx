@@ -1,10 +1,15 @@
-import { Container, Sprite } from '@pixi/react'
-import { Rectangle } from 'pixi.js'
-import { Dispatch, FC, SetStateAction, useMemo } from 'react'
-
-//images
-import buttonOffImage from './images/button_off.png'
-import buttonOnImage from './images/button_on.png'
+import { AnimatedSprite, Container } from '@pixi/react'
+import { Rectangle, Resource, Texture } from 'pixi.js'
+import {
+    Dispatch,
+    FC,
+    SetStateAction,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from 'react'
+import * as PIXI from 'pixi.js'
 
 interface BoxButtonProps {
     id: number
@@ -14,9 +19,17 @@ interface BoxButtonProps {
 }
 
 const BoxButton: FC<BoxButtonProps> = ({ id, y, catStack, setCatStack }) => {
-    const buttonOn = useMemo(() => {
+    const [buttonFrames, setButtonFrames] = useState<Texture<Resource>[]>([])
+    const buttonRef = useRef<PIXI.AnimatedSprite>(null)
+
+    const buttonOn: boolean = useMemo(() => {
         return catStack.some((buttonData) => buttonData.id === id)
     }, [catStack])
+
+    useEffect(() => {
+        if (!buttonRef.current) return
+        buttonRef.current.play()
+    }, [buttonOn])
 
     const buttonHandler = () => {
         setCatStack((prev) => {
@@ -30,9 +43,23 @@ const BoxButton: FC<BoxButtonProps> = ({ id, y, catStack, setCatStack }) => {
         })
     }
 
-    const buttonImage: string = useMemo(() => {
-        return buttonOn ? buttonOnImage : buttonOffImage
-    }, [buttonOn])
+    const button_animation_paths = useMemo(
+        () => [
+            'src/components/images/button_sprite/button_sprite1.png',
+            'src/components/images/button_sprite/button_sprite2.png',
+            'src/components/images/button_sprite/button_sprite3.png',
+            'src/components/images/button_sprite/button_sprite4.png',
+        ],
+        []
+    )
+
+    useEffect(() => {
+        const button_animation_textures: Texture<Resource>[] =
+            button_animation_paths.map((path) => {
+                return Texture.from(path)
+            })
+        setButtonFrames(button_animation_textures)
+    }, [button_animation_paths])
 
     const curHitArea = useMemo(() => {
         const rightHitboxActive = new Rectangle(13, 6, 10, 12)
@@ -41,10 +68,16 @@ const BoxButton: FC<BoxButtonProps> = ({ id, y, catStack, setCatStack }) => {
         return buttonOn ? leftHitboxActive : rightHitboxActive
     }, [buttonOn])
 
+    if (buttonFrames.length === 0) return null
+
     return (
         <Container y={y}>
-            <Sprite
-                image={buttonImage}
+            <AnimatedSprite
+                ref={buttonRef}
+                textures={buttonFrames}
+                isPlaying={true}
+                animationSpeed={(buttonOn ? -1 : 1) * 0.5}
+                loop={false}
                 cursor="pointer"
                 eventMode="static"
                 hitArea={curHitArea}

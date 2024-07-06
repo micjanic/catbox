@@ -1,4 +1,4 @@
-import { Container, Sprite, Stage } from '@pixi/react'
+import { Container, Sprite, Stage, useApp } from '@pixi/react'
 import { FC, useEffect, useRef, useState } from 'react'
 import BoxButton from './BoxButton'
 import BoxLid from './BoxLid'
@@ -8,7 +8,7 @@ import * as PIXI from 'pixi.js'
 //images
 import catBox from './images/catbox.png'
 
-// Disable antialiasing globally
+// disables antialiasing globally
 PIXI.BaseTexture.defaultOptions.scaleMode = PIXI.SCALE_MODES.NEAREST
 
 const CatBox: FC = () => {
@@ -32,24 +32,6 @@ const CatBox: FC = () => {
         window.addEventListener('resize', handleResize)
         handleResize()
         return () => window.removeEventListener('resize', handleResize)
-    }, [])
-
-    // Allow touch scrolling
-    useEffect(() => {
-        const handleTouchMove = (event: Event) => {
-            // Allow scrolling if touch is outside interactive elements
-            if (event.target instanceof HTMLCanvasElement) {
-                event.preventDefault()
-            }
-        }
-
-        document.addEventListener('touchmove', handleTouchMove, {
-            passive: false,
-        })
-
-        return () => {
-            document.removeEventListener('touchmove', handleTouchMove)
-        }
     }, [])
 
     const boxButtonGroup = [...Array(8)].map((_, i) => (
