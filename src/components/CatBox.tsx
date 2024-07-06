@@ -1,4 +1,4 @@
-import { Container, Sprite, Stage, useApp } from '@pixi/react'
+import { Container, Sprite, Stage } from '@pixi/react'
 import { FC, useEffect, useRef, useState } from 'react'
 import BoxButton from './BoxButton'
 import BoxLid from './BoxLid'

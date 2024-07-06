@@ -11,6 +11,11 @@ import {
 } from 'react'
 import * as PIXI from 'pixi.js'
 
+import buttonSprite1 from './images/button_sprite/button_sprite1.png'
+import buttonSprite2 from './images/button_sprite/button_sprite2.png'
+import buttonSprite3 from './images/button_sprite/button_sprite3.png'
+import buttonSprite4 from './images/button_sprite/button_sprite4.png'
+
 interface BoxButtonProps {
     id: number
     y: number
@@ -44,12 +49,7 @@ const BoxButton: FC<BoxButtonProps> = ({ id, y, catStack, setCatStack }) => {
     }
 
     const button_animation_paths = useMemo(
-        () => [
-            'src/components/images/button_sprite/button_sprite1.png',
-            'src/components/images/button_sprite/button_sprite2.png',
-            'src/components/images/button_sprite/button_sprite3.png',
-            'src/components/images/button_sprite/button_sprite4.png',
-        ],
+        () => [buttonSprite1, buttonSprite2, buttonSprite3, buttonSprite4],
         []
     )
 
