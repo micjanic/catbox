@@ -129,7 +129,14 @@ const CatPaw: FC<CatPawProps> = ({ x, y, catStack, setCatStack }) => {
 
     return (
         <Container x={x} y={y}>
-            <Sprite visible={pawVisible} x={pawXPos} y={pawYPos} image={paw} />
+            <Sprite
+                scale={[1.1, 1.1]}
+                pivot={[13, 0]}
+                visible={pawVisible}
+                x={pawXPos}
+                y={pawYPos}
+                image={paw}
+            />
         </Container>
     )
 }
