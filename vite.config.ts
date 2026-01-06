@@ -16,19 +16,18 @@ export default defineConfig({
             fileName: (format) => `catbox.${format}.js`,
         },
         rollupOptions: {
+            // Bundle PIXI and @pixi/react inside the library; keep React external
             external: [
                 'react',
                 'react-dom',
-                '@pixi/react',
-                'pixi.js',
                 'tailwindcss',
             ],
             output: {
                 assetFileNames: 'assets/[name].[hash][extname]',
                 globals: {
                     react: 'React',
-                    '@pixi/react': 'PIXIReact',
-                    'pixi.js': 'PIXI',
+                    // react-dom is external; provide its UMD global
+                    'react-dom': 'ReactDOM',
                 },
             },
         },
